@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DJ Chris G</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#15100e;
+    --ink-2:#1d1512;
+    --ink-3:#241a16;
+    --paper:#f4ece0;
+    --paper-dim:#c9baa8;
+    --paper-faint:#8f8071;
+    --amber:#f2a35c;
+    --amber-dim:#c9843f;
+    --magenta:#e2547e;
+    --line:rgba(244,236,224,0.14);
+    --line-strong:rgba(244,236,224,0.28);
+    --font-display:'Fraunces',ui-serif,Georgia,serif;
+    --font-body:'Instrument Sans',ui-sans-serif,system-ui,sans-serif;
+    --font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *,*::before,*::after{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  img{max-width:100%;display:block;}
+
+  a{color:inherit;}
+
+  .wrap{
+    max-width:1120px;
+    margin:0 auto;
+    padding-left:clamp(20px,5vw,56px);
+    padding-right:clamp(20px,5vw,56px);
+  }
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--amber);
+  }
+
+  h1,h2,h3{
+    font-family:var(--font-display);
+    font-weight:500;
+    text-wrap:balance;
+    margin:0;
+  }
+
+  section{
+    padding:88px 0;
+    border-bottom:1px solid var(--line);
+  }
+  section:last-of-type{border-bottom:none;}
+
+  /* ---------- Nav ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:40;
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    background:rgba(21,16,14,0.72);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px clamp(20px,5vw,56px);
+  }
+  .wordmark{
+    font-family:var(--font-display);
+    font-style:italic;
+    font-weight:500;
+    font-size:1.25rem;
+    letter-spacing:0.01em;
+    text-decoration:none;
+  }
+  .wordmark span{color:var(--amber);font-style:normal;}
+  .navlinks{
+    display:flex;
+    gap:clamp(16px,2.6vw,32px);
+    list-style:none;
+    margin:0;
+    padding:0;
+    font-family:var(--font-mono);
+    font-size:0.74rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+  }
+  .navlinks a{
+    text-decoration:none;
+    color:var(--paper-dim);
+    position:relative;
+    padding-bottom:4px;
+    transition:color 0.2s ease;
+  }
+  .navlinks a:hover,.navlinks a:focus-visible{color:var(--paper);}
+  .navlinks a::after{
+    content:"";
+    position:absolute;
+    left:0;right:0;bottom:0;
+    height:1px;
+    background:var(--amber);
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:transform 0.25s ease;
+  }
+  .navlinks a:hover::after,.navlinks a:focus-visible::after{transform:scaleX(1);}
+  .navtoggle{
+    display:none;
+    background:none;
+    border:1px solid var(--line-strong);
+    border-radius:6px;
+    color:var(--paper);
+    width:38px;height:34px;
+    align-items:center;justify-content:center;
+    cursor:pointer;
+  }
+  .navtoggle span,.navtoggle span::before,.navtoggle span::after{
+    content:"";
+    display:block;
+    width:16px;height:1px;
+    background:var(--paper);
+    position:relative;
+    transition:transform 0.2s ease, opacity 0.2s ease;
+  }
+  .navtoggle span::before{position:absolute;top:-5px;}
+  .navtoggle span::after{position:absolute;top:5px;}
+
+  @media (max-width:760px){
+    .navtoggle{display:inline-flex;}
+    .navlinks{
+      position:absolute;
+      top:100%;left:0;right:0;
+      flex-direction:column;
+      gap:0;
+      background:var(--ink-2);
+      border-bottom:1px solid var(--line);
+      max-height:0;
+      overflow:hidden;
+      transition:max-height 0.3s ease;
+    }
+    .navlinks.open{max-height:320px;}
+    .navlinks a{
+      display:block;
+      padding:14px clamp(20px,5vw,56px);
+      border-top:1px solid var(--line);
+    }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:0;
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .hero-stage{
+    position:relative;
+    min-height:min(84vh,760px);
+    display:flex;
+    align-items:flex-end;
+    /* HERO PHOTO SLOT: swap this background for the real gig photo, e.g.
+       background:linear-gradient(180deg, rgba(21,16,14,0.15), rgba(21,16,14,0.92)), url('chris-djing.jpg') center 30%/cover; */
+    background:
+      radial-gradient(60% 50% at 18% 22%, rgba(226,84,126,0.55), transparent 60%),
+      radial-gradient(55% 55% at 82% 12%, rgba(242,163,92,0.5), transparent 65%),
+      radial-gradient(80% 60% at 50% 100%, rgba(242,163,92,0.16), transparent 70%),
+      linear-gradient(180deg, #1b1310 0%, #15100e 55%, #100c0a 100%);
+    background-color:var(--ink);
+  }
+  .hero-beams{
+    position:absolute;
+    inset:0;
+    background:
+      conic-gradient(from 210deg at 20% 0%, transparent 0deg, rgba(226,84,126,0.16) 8deg, transparent 20deg),
+      conic-gradient(from 150deg at 85% 0%, transparent 0deg, rgba(242,163,92,0.18) 10deg, transparent 24deg);
+    mix-blend-mode:screen;
+    animation:sway 14s ease-in-out infinite alternate;
+    pointer-events:none;
+  }
+  @keyframes sway{
+    0%{transform:translateX(-2%) rotate(0deg);}
+    100%{transform:translateX(2%) rotate(1.2deg);}
+  }
+  .hero-grain{
+    position:absolute;inset:0;
+    opacity:0.05;
+    pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .hero-inner{
+    position:relative;
+    z-index:2;
+    padding:120px clamp(20px,5vw,56px) 64px;
+    width:100%;
+  }
+  .hero-inner .eyebrow{margin-bottom:18px;}
+  .hero h1{
+    font-size:clamp(2.6rem,7vw,5.4rem);
+    line-height:0.98;
+    color:var(--paper);
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--amber);
+  }
+  .hero-tagline{
+    margin:22px 0 34px;
+    max-width:44ch;
+    font-size:1.08rem;
+    color:var(--paper-dim);
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--font-mono);
+    font-size:0.78rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    text-decoration:none;
+    padding:14px 22px;
+    border-radius:2px;
+    border:1px solid var(--amber);
+    color:var(--ink);
+    background:var(--amber);
+    transition:background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  .btn:hover,.btn:focus-visible{
+    background:transparent;
+    color:var(--amber);
+    transform:translateY(-1px);
+  }
+  .btn.ghost{
+    background:transparent;
+    color:var(--paper);
+    border-color:var(--line-strong);
+  }
+  .btn.ghost:hover,.btn.ghost:focus-visible{
+    border-color:var(--amber);
+    color:var(--amber);
+  }
+
+  /* ---------- Section heads ---------- */
+  .section-head{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-bottom:52px;
+    max-width:56ch;
+  }
+  .section-head h2{
+    font-size:clamp(1.7rem,3.4vw,2.5rem);
+  }
+
+  /* ---------- About ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.2fr 0.8fr;
+    gap:64px;
+  }
+  .about-grid p{
+    color:var(--paper-dim);
+    font-size:1.02rem;
+    max-width:56ch;
+  }
+  .about-grid p + p{margin-top:16px;}
+  .crate{
+    border-left:1px solid var(--line-strong);
+    padding-left:28px;
+  }
+  .crate-label{
+    font-family:var(--font-mono);
+    font-size:0.7rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--paper-faint);
+    margin-bottom:14px;
+  }
+  .crate-list{
+    list-style:none;
+    margin:0;padding:0;
+    font-family:var(--font-display);
+    font-style:italic;
+    font-size:1.15rem;
+    color:var(--paper);
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .crate-list li::before{
+    content:"— ";
+    color:var(--magenta);
+    font-style:normal;
+  }
+
+  @media (max-width:760px){
+    .about-grid{grid-template-columns:1fr;gap:40px;}
+    .crate{border-left:none;border-top:1px solid var(--line-strong);padding-left:0;padding-top:28px;}
+  }
+
+  /* ---------- Services ---------- */
+  .service-cards{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .service-card{
+    background:var(--ink);
+    padding:34px 30px;
+  }
+  .service-card h3{
+    font-size:1.3rem;
+    margin-bottom:12px;
+  }
+  .service-card p{
+    color:var(--paper-dim);
+    margin:0;
+    font-size:0.98rem;
+  }
+  @media (max-width:760px){
+    .service-cards{grid-template-columns:1fr;}
+  }
+
+  /* ---------- Inquire ---------- */
+  form.inquire{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+  .field{display:flex;flex-direction:column;gap:8px;}
+  .field.full{grid-column:1 / -1;}
+  label{
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--paper-faint);
+  }
+  input,select,textarea{
+    background:var(--ink-2);
+    border:1px solid var(--line-strong);
+    color:var(--paper);
+    font-family:var(--font-body);
+    font-size:0.96rem;
+    padding:12px 14px;
+    border-radius:2px;
+  }
+  input:focus-visible,select:focus-visible,textarea:focus-visible{
+    outline:none;
+    border-color:var(--amber);
+  }
+  textarea{resize:vertical;min-height:96px;}
+  .inquire-note{
+    grid-column:1 / -1;
+    color:var(--paper-faint);
+    font-size:0.86rem;
+    margin:-4px 0 4px;
+  }
+  .inquire-submit{
+    grid-column:1 / -1;
+    justify-self:start;
+  }
+  @media (max-width:760px){
+    form.inquire{grid-template-columns:1fr;}
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:56px 0 40px;
+  }
+  .footer-grid{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:32px;
+  }
+  .footer-block h4{
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--paper-faint);
+    margin:0 0 10px;
+    font-weight:400;
+  }
+  .footer-block p, .footer-block a{
+    font-size:0.98rem;
+    text-decoration:none;
+    color:var(--paper);
+  }
+  .footer-bottom{
+    margin-top:48px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    color:var(--paper-faint);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a class="wordmark" href="#top">DJ CHRIS<span>G</span></a>
+    <ul class="navlinks" id="navlinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#inquire">Inquire</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="navtoggle" id="navtoggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navlinks">
+      <span></span>
+    </button>
+  </nav>
+</header>
+
+<div id="top" class="hero">
+  <div class="hero-stage">
+    <div class="hero-beams"></div>
+    <div class="hero-grain"></div>
+    <div class="hero-inner wrap">
+      <p class="eyebrow">DJ &amp; event sound – Toronto &amp; the GTA</p>
+      <h1>DJ Chris G</h1>
+      <p class="hero-tagline">Weddings, private parties, and corporate events. I play what the room wants and keep the night moving, start to finish.</p>
+      <a class="btn" href="#inquire">Get in touch →</a>
+    </div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div>
+      <div class="section-head">
+        <p class="eyebrow">About</p>
+        <h2>Whatever you want to hear, played right.</h2>
+      </div>
+      <p>Weddings, private parties, corporate events – the format changes, the job doesn't. Get the right song to the right moment, keep the levels clean, and never leave dead air while people wait to dance.</p>
+      <p>Hand me a playlist, a must-play list, or a do-not-play list and I'll follow it. Want me to just read the room instead? I do that too.</p>
+    </div>
+    <div class="crate">
+      <p class="crate-label">What to hand me</p>
+      <ul class="crate-list">
+        <li>Your playlist – Spotify, Apple Music, or a plain list</li>
+        <li>Ceremony &amp; first dance songs, if it's a wedding</li>
+        <li>Must-plays and do-not-plays</li>
+        <li>Timeline from your planner or venue</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Services</p>
+      <h2>Weddings, parties, and everything between.</h2>
+    </div>
+    <div class="service-cards">
+      <div class="service-card">
+        <h3>Weddings</h3>
+        <p>Ceremony, cocktail hour, and reception, coordinated with your planner and venue so the day runs as one set, not three separate events.</p>
+      </div>
+      <div class="service-card">
+        <h3>Private &amp; Corporate Events</h3>
+        <p>Parties, launches, and holiday events built around your room and your crowd, not a stock playlist.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="inquire">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Inquire</p>
+      <h2>Tell me about your event.</h2>
+    </div>
+    <form class="inquire" id="inquireForm">
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" required />
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required />
+      </div>
+      <div class="field">
+        <label for="eventType">Event type</label>
+        <select id="eventType" name="eventType">
+          <option>Wedding</option>
+          <option>Private Event</option>
+          <option>Corporate Event</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="eventDate">Event date</label>
+        <input id="eventDate" name="eventDate" type="date" />
+      </div>
+      <div class="field full">
+        <label for="venue">Venue / location</label>
+        <input id="venue" name="venue" type="text" placeholder="Venue name or city" />
+      </div>
+      <div class="field full">
+        <label for="details">Event details</label>
+        <textarea id="details" name="details" placeholder="Guest count, vibe, must-play songs, anything else useful."></textarea>
+      </div>
+      <p class="inquire-note">Sending opens a pre-filled email to contact@finnian.ca with these details – just hit send from there.</p>
+      <button type="submit" class="btn inquire-submit">Send inquiry →</button>
+    </form>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-block">
+        <h4>Email</h4>
+        <a href="mailto:contact@finnian.ca">contact@finnian.ca</a>
+      </div>
+      <div class="footer-block">
+        <h4>Phone</h4>
+        <a href="tel:+16134640198">(613) 464-0198</a>
+      </div>
+      <div class="footer-block">
+        <h4>Service area</h4>
+        <p>Toronto &amp; the GTA</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 DJ Chris G</span>
+      <span>Toronto, Ontario</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var navtoggle = document.getElementById('navtoggle');
+  var navlinks = document.getElementById('navlinks');
+  navtoggle.addEventListener('click', function(){
+    var isOpen = navlinks.classList.toggle('open');
+    navtoggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  navlinks.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      navlinks.classList.remove('open');
+      navtoggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.getElementById('inquireForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var f = e.target;
+    var eventType = f.eventType.value;
+    var subject = 'DJ inquiry: ' + eventType + (f.eventDate.value ? ' on ' + f.eventDate.value : '');
+    var bodyLines = [
+      'Name: ' + f.name.value,
+      'Email: ' + f.email.value,
+      'Event type: ' + eventType,
+      'Event date: ' + (f.eventDate.value || '-'),
+      'Venue / location: ' + (f.venue.value || '-'),
+      '',
+      'Details:',
+      f.details.value || '-'
+    ];
+    var mailto = 'mailto:contact@finnian.ca?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(bodyLines.join('\n'));
+    window.location.href = mailto;
+  });
+</script>
+
+</body>
+</html>
