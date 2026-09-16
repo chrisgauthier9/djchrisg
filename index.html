@@ -537,12 +537,10 @@
         <label for="details">Event details</label>
         <textarea id="details" name="details" placeholder="Guest count, vibe, must-play songs, anything else useful."></textarea>
       </div>
-      <p class="inquire-note">Sending opens a pre-filled email to contact@finnian.ca with these details – just hit send from there.</p>
-      <button type="submit" class="btn inquire-submit">Send inquiry →</button>
-      <p class="inquire-note" id="inquireFallback" style="display:none;">
-        If your email app didn't open, click <a id="inquireFallbackLink" href="#">here</a>, or just email
-        <a href="mailto:contact@finnian.ca">contact@finnian.ca</a> directly with your event details.
-      </p>
+      <input type="hidden" name="_subject" value="DJ inquiry from djchrisg.com" />
+      <p class="inquire-note">Submits directly – no email app needed. I'll reply to the address you give above.</p>
+      <button type="submit" class="btn inquire-submit" id="inquireSubmitBtn">Send inquiry →</button>
+      <p class="inquire-note" id="inquireStatus" role="status" style="display:none;"></p>
     </form>
   </div>
 </section>
@@ -587,25 +585,32 @@
   document.getElementById('inquireForm').addEventListener('submit', function(e){
     e.preventDefault();
     var f = e.target;
-    var eventType = f.eventType.value;
-    var subject = 'DJ inquiry: ' + eventType + (f.eventDate.value ? ' on ' + f.eventDate.value : '');
-    var bodyLines = [
-      'Name: ' + f.name.value,
-      'Email: ' + f.email.value,
-      'Event type: ' + eventType,
-      'Event date: ' + (f.eventDate.value || '-'),
-      'Venue / location: ' + (f.venue.value || '-'),
-      '',
-      'Details:',
-      f.details.value || '-'
-    ];
-    var mailto = 'mailto:contact@finnian.ca?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(bodyLines.join('\n'));
-    window.location.href = mailto;
+    var btn = document.getElementById('inquireSubmitBtn');
+    var status = document.getElementById('inquireStatus');
 
-    var fallback = document.getElementById('inquireFallback');
-    var fallbackLink = document.getElementById('inquireFallbackLink');
-    fallbackLink.href = mailto;
-    fallback.style.display = 'block';
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    status.style.display = 'none';
+
+    fetch('https://formspree.io/f/mdekonoz', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(f)
+    }).then(function(response){
+      if (response.ok) {
+        f.reset();
+        btn.style.display = 'none';
+        status.textContent = "Thanks — that's sent. I'll get back to you soon.";
+        status.style.display = 'block';
+      } else {
+        throw new Error('Form submission failed');
+      }
+    }).catch(function(){
+      btn.disabled = false;
+      btn.textContent = 'Send inquiry →';
+      status.innerHTML = "Something went wrong sending that. Please email <a href=\"mailto:contact@finnian.ca\">contact@finnian.ca</a> directly instead.";
+      status.style.display = 'block';
+    });
   });
 </script>
 
