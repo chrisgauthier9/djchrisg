@@ -539,6 +539,10 @@
       </div>
       <p class="inquire-note">Sending opens a pre-filled email to contact@finnian.ca with these details – just hit send from there.</p>
       <button type="submit" class="btn inquire-submit">Send inquiry →</button>
+      <p class="inquire-note" id="inquireFallback" style="display:none;">
+        If your email app didn't open, click <a id="inquireFallbackLink" href="#">here</a>, or just email
+        <a href="mailto:contact@finnian.ca">contact@finnian.ca</a> directly with your event details.
+      </p>
     </form>
   </div>
 </section>
@@ -597,6 +601,11 @@
     ];
     var mailto = 'mailto:contact@finnian.ca?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(bodyLines.join('\n'));
     window.location.href = mailto;
+
+    var fallback = document.getElementById('inquireFallback');
+    var fallbackLink = document.getElementById('inquireFallbackLink');
+    fallbackLink.href = mailto;
+    fallback.style.display = 'block';
   });
 </script>
 
