@@ -183,14 +183,18 @@
     min-height:min(84vh,760px);
     display:flex;
     align-items:flex-end;
-    /* HERO PHOTO SLOT: swap this background for the real gig photo, e.g.
-       background:linear-gradient(180deg, rgba(21,16,14,0.15), rgba(21,16,14,0.92)), url('chris-djing.jpg') center 30%/cover; */
     background:
-      radial-gradient(60% 50% at 18% 22%, rgba(226,84,126,0.55), transparent 60%),
-      radial-gradient(55% 55% at 82% 12%, rgba(242,163,92,0.5), transparent 65%),
-      radial-gradient(80% 60% at 50% 100%, rgba(242,163,92,0.16), transparent 70%),
-      linear-gradient(180deg, #1b1310 0%, #15100e 55%, #100c0a 100%);
+      linear-gradient(180deg, rgba(21,16,14,0.10) 0%, rgba(21,16,14,0.35) 45%, rgba(21,16,14,0.94) 100%),
+      url('hero-wide.jpg') 65% 42%/cover;
     background-color:var(--ink);
+  }
+  @media (max-width:760px){
+    .hero-stage{
+      background:
+        linear-gradient(180deg, rgba(21,16,14,0.05) 0%, rgba(21,16,14,0.35) 50%, rgba(21,16,14,0.95) 100%),
+        url('hero-tall.jpg') center 15%/cover;
+      background-color:var(--ink);
+    }
   }
   .hero-beams{
     position:absolute;
